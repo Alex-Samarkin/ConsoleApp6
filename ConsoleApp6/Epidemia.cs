@@ -36,5 +36,37 @@ namespace ConsoleApp6
 
         // функции для расчета эпидемии
 
+        // живые, проболевшие полный срок болезни, либо умирают (вероятность задана в вирусе)
+        // либо получают иммунитет
+        private void KillThem()
+        {
+            // перебираем пациентов
+            for (int i = 0; i < this.ManyHumans.MAX_HUMANS; i++)
+            {
+                // убеждаемся, что пациент не умер = жив
+                if ( !(ManyHumans.Humans[i].IsDead) )
+                {
+                    // проверяем, что пациент болен
+                    if ( !(ManyHumans.Humans[i].IsAlive) )
+                    {
+                        // проверяем, что срок его болезни - больше инкубационного +время болезни
+                        if ( ManyHumans.Humans[i].InfestTime > (Virus.IncTime+Virus.BolesnTime) )
+                        {
+                            if (Test(Virus.Dead))
+                            {
+                                ManyHumans.Humans[i].IsDead = true;
+                            }
+                            else
+                            {
+                                ManyHumans.Humans[i].HaveImmunitet = true;
+                            }
+                        }
+
+                    }
+                    
+                }
+            }
+        }
+
     }
 }
