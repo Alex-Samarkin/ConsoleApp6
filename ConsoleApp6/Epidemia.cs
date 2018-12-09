@@ -59,6 +59,7 @@ namespace ConsoleApp6
                             else
                             {
                                 ManyHumans.Humans[i].HaveImmunitet = true;
+                                ManyHumans.Humans[i].IsAlive = true;
                             }
                         }
 
@@ -68,5 +69,80 @@ namespace ConsoleApp6
             }
         }
 
+        // больные встречаются с выбранными наугад N1=20 людьми
+        // если встретился здоровый то с вероятностью из вируса заражаем его
+        // тогда также устанавливаем день болезни 1
+        private void InfectedThem(int N1= 20)
+        {
+            // перебираем пациентов
+            for (int i = 0; i < this.ManyHumans.MAX_HUMANS; i++)
+            {
+                // убеждаемся, что пациент не умер = жив
+                if (!(ManyHumans.Humans[i].IsDead))
+                {
+                    // проверяем, что пациент болен
+                    if (!(ManyHumans.Humans[i].IsAlive))
+                    {
+                        // в цикле N1 раз моделируем контакт
+                        for (int j = 0; j < N1; j++)
+                        {
+                            // номер пациента для контакта
+                            int contact = _random.Next(0, ManyHumans.MAX_HUMANS);
+                            // если он здоров и не имеет иммунитета
+                            if (ManyHumans.Humans[contact].IsAlive && !ManyHumans.Humans[contact].HaveImmunitet )
+                            {
+                                if (Test(Virus.Zaraza))
+                                {
+                                    // заболел при контакте
+                                    ManyHumans.Humans[contact].IsAlive = false;
+                                    // задаем срок болезни - 1 день
+                                    ManyHumans.Humans[contact].InfestTime = 1;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// для следующего дня просматриваем больных и увеличиваем им срок на 1
+        /// </summary>
+        private void NextDay()
+        {
+            // перебираем пациентов
+            for (int i = 0; i < this.ManyHumans.MAX_HUMANS; i++)
+            {
+                // если нездоров
+                if (!(this.ManyHumans.Humans[i].IsAlive))
+                {
+                    this.ManyHumans.Humans[i].InfestTime += 1;
+                }
+
+            }
+        }
+        /// <summary>
+        /// открытый метод для имитации одного дня эпидемии
+        /// </summary>
+        public void Step()
+        {
+            // увеличиваем время эпидемии
+            this.Day += 1;
+            Console.WriteLine($"Time of epidemia {Day}");
+            // увеличиваем сроки болезней пациентов
+            Console.WriteLine("Считаем больных");
+            NextDay();
+
+            // убиваем кого можно
+            Console.WriteLine("Считаем умерших");
+            KillThem();
+
+            // заражаем
+            Console.WriteLine("Моделируем заражение новых");
+            InfectedThem();
+
+            Console.WriteLine(ManyHumans.Stat());
+        }
     }
 }

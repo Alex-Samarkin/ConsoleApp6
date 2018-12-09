@@ -39,5 +39,38 @@ namespace ConsoleApp6
 
             return res;
         }
+
+        public int AliveCount()
+        {
+            int res = 0;
+            foreach (Human h in Humans)
+            {
+                if (h.IsAlive)
+                {
+                    res++;
+                }
+            }
+
+            return res;
+        }
+        public int ImmunitetCount()
+        {
+            int res = 0;
+            foreach (Human h in Humans)
+            {
+                if (h.HaveImmunitet)
+                {
+                    res++;
+                }
+            }
+
+            return res;
+        }
+
+        public string Stat()
+        {
+            return $"Всего {MAX_HUMANS}, здоровых {AliveCount()}, с иммунитетом {ImmunitetCount()}\n" +
+                   $"Больных {MAX_HUMANS - AliveCount()}, умерших - {DeadsCount()}";
+        }
     }
 }
