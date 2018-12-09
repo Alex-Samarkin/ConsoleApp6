@@ -13,9 +13,13 @@ namespace ConsoleApp6
         {
             Console.WriteLine("Эпидемия");
 
-            ManyHumans mh = new ManyHumans();
-            mh.Init();
-            Console.WriteLine(mh.DeadsCount());
+            // ManyHumans mh = new ManyHumans();
+            // mh.Init();
+            // Console.WriteLine(mh.DeadsCount());
+
+            Epidemia epidemia = new Epidemia();
+            epidemia.Step();
+            epidemia.Step();
 
             Console.ReadKey();
         }

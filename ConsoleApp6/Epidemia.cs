@@ -144,5 +144,11 @@ namespace ConsoleApp6
 
             Console.WriteLine(ManyHumans.Stat());
         }
+
+        public Epidemia()
+        {
+            ManyHumans.Init();
+            Console.WriteLine(ManyHumans.Stat());
+        }
     }
 }
