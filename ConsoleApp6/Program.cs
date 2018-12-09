@@ -19,8 +19,17 @@ namespace ConsoleApp6
 
             Epidemia epidemia = new Epidemia();
             epidemia.Init();
-            epidemia.Step();
-            epidemia.Step();
+            Console.WriteLine(epidemia.ManyHumans.Stat());
+            Console.WriteLine("====================================================================================");
+            do
+            {
+                epidemia.Step();
+                Console.WriteLine("введите 0 для выхода");
+                ConsoleKeyInfo c = Console.ReadKey();
+                if(c.KeyChar == '0')
+                    break;
+
+            } while (true);
 
             Console.ReadKey();
         }
