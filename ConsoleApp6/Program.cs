@@ -18,6 +18,7 @@ namespace ConsoleApp6
             // Console.WriteLine(mh.DeadsCount());
 
             Epidemia epidemia = new Epidemia();
+            epidemia.Init();
             epidemia.Step();
             epidemia.Step();
 

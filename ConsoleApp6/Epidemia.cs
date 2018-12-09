@@ -150,5 +150,21 @@ namespace ConsoleApp6
             ManyHumans.Init();
             Console.WriteLine(ManyHumans.Stat());
         }
+
+        /// <summary>
+        /// заражаем несколько случайных пациентов
+        /// </summary>
+        /// <param name="infectedAtStart"></param>
+        public void Init(int infectedAtStart = 50)
+        {
+            for (int i = 0; i < infectedAtStart; i++)
+            {
+                // номер пациента для контакта
+                int contact = _random.Next(0, ManyHumans.MAX_HUMANS);
+                ManyHumans.Humans[contact].IsAlive = false;
+
+            }
+
+        }
     }
 }
